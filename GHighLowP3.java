@@ -1,26 +1,53 @@
+import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 import java.util.Scanner;
 
 /**
- * Write a description of class HighLow here.
+ * Graphical window for HighLow
  *
- * @author (Eric Robinson)
- * @version (a version number or a date)
+ * @author (Prof R)
+ * @version (v1.0, 3/23/23)
  */
-public class HighLow
+public class GHighLowP3
 {
+    private JFrame      frame;
+    private JPanel      panel;
+    private JLabel      iconLabelOne, iconLabelTwo;
+    private ImageIcon   image;
+
     protected int m_gamesPlayed;
     private int m_sumofScores;
     private Deck deck;
-    GHighLowP3 hlow = new GHighLowP3();
-    public static void main(String args[]){
-        HighLow highlow =new HighLow();
-    
-        int count=0;
 
-        highlow.Play();
-        //highlow.Play();
-        count++;
+
+    public GHighLowP3()
+    {
+        this.frame = new JFrame("High Low");                     // Create frame window and specify window bar text
+        this.frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE); 
+
+        this.image  = new ImageIcon("cards//cardBack.png");
+
+        // Create two icon JLabel objects
+        this.iconLabelOne = new JLabel (null, this.image, SwingConstants.CENTER);
+        this.iconLabelTwo = new JLabel (null, this.image, SwingConstants.CENTER);
+
+        this.panel = new JPanel();
+        this.panel.setBackground(Color.cyan);
+        this.panel.setPreferredSize (new Dimension(350, 275));
+
+        this.panel.add(this.iconLabelOne);
+        this.panel.add(this.iconLabelTwo);
+
+        //this.iconLabelOne.setIcon(image);
+        //this.iconLabelTwo.setIcon(image);
+
+        this.frame.getContentPane().add(this.panel);
+        this.frame.pack();
+        this.frame.setVisible(true);  
     }
+
 
     public void Play(){
         System.out.println("welcome");
@@ -53,32 +80,34 @@ public class HighLow
         char guess;
         deck=new Deck();
         deck.Shuffle();
-        Card currentCard;     
+        Card currentCard;
+        this.image  = new ImageIcon("cards//cardBack.png");
+        this.iconLabelTwo.setIcon(this.image);     
         currentCard=deck.DealACard();
 
-        
-        System.out.println("The value of card: "+ currentCard);
         int totalGames=0;
         int Score=0;
 
-        hlow.Play();
-        
-        DisplayCurrentCard(currentCard); 
+        DisplayCurrentCard(); 
         guess=GuessPrompt();
         Card NextCard=deck.DealACard(); 
         if(NextCard.GetValue()==currentCard.GetValue()){
             System.out.println("The value is the same as the last card");
-            System.out.println("You lose on ties!");                
+            System.out.println("You lose on ties!");  
+            DisplayNextCard();
+            totalGames++;
             PlayAgainPrompt();           
         }
         else if(NextCard.GetValue()>currentCard.GetValue()){
             if(guess=='H'){
                 System.out.println("Your prediction was correct");
+                DisplayNextCard();
                 totalGames++;
-                PlayARound();
+                PlayAgainPrompt();
             }
             else{
                 System.out.println("The prediction was incorrect");
+                DisplayNextCard();
                 totalGames++;
                 PlayAgainPrompt();                 
             }
@@ -86,11 +115,13 @@ public class HighLow
         else {
             if(guess=='L'){
                 System.out.println("Your prediction was correct");
+                DisplayNextCard();
                 totalGames++; 
-                PlayARound();
+                PlayAgainPrompt();
             }
             else{
                 System.out.println("The prediction was incorrect");
+                DisplayNextCard();
                 totalGames++;
                 PlayAgainPrompt();                                    
             }
@@ -100,6 +131,7 @@ public class HighLow
         return this.m_gamesPlayed;
     }
 
+
     protected char GuessPrompt(){
         char prompt;
         Scanner in=new Scanner(System.in);
@@ -108,13 +140,12 @@ public class HighLow
         return prompt;
     }
 
-    protected void DisplayCurrentCard(Card card){
-        System.out.println("The current card is "+card);
-        
-    }
 
-    protected void NextCard(Card card){
-        System.out.println("The next card is "+card);
+    protected void DisplayCurrentCard() {
+        this.iconLabelOne.setIcon(deck.GetImage());
+    }
+    protected void DisplayNextCard() {
+        this.iconLabelTwo.setIcon(deck.GetNextImage());
     }
 
 }

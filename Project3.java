@@ -1,3 +1,4 @@
+import java.util.Scanner;
 
 /**
  * Graphical HighLow Game
@@ -7,9 +8,15 @@
  */
 public class Project3
 {
-   public static void main()
-   {
+    protected int m_gamesPlayed;
+    private int m_sumofScores;
+    private Deck deck;
+
+   public static void main(String args[]){
        GHighLowP3 game = new GHighLowP3();
+       int count=0;
        game.Play();
+       count++;
    }
+
 }

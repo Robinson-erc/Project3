@@ -16,8 +16,13 @@ public class GCardP3 extends Card
     public GCardP3(int theValue, Suit theSuit, String imgFileName)
     {
         super(theValue, theSuit);
-        image = new ImageIcon(imgFileName);
+        this.image = new ImageIcon(imgFileName);
     }
+
+    public ImageIcon GetImageIcon() {
+        return this.image;
+    }
+
 }
 
     
