@@ -7,6 +7,9 @@
  */
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.ImageIcon;
+
 import java.util.Collections;
  
 public class Deck
@@ -42,6 +45,14 @@ public class Deck
         return deck.get((cardsUsed-1)); 
     }
    
+    public ImageIcon GetImage() {
+        return deck.get(cardsUsed - 1).GetImageIcon();
+    }
+
+    public ImageIcon GetNextImage() {
+        return deck.get(cardsUsed - 1).GetImageIcon();
+    }
+
     public void Shuffle(){
         for(int i= deck.size()-1; i >0;  i--){
             int rand = (int) (Math.random()*(i+1));
